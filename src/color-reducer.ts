@@ -1,4 +1,10 @@
-import { rgb } from 'color-convert';
+import { rgb, hsl } from 'color-convert';
+
+// export type HexColor = `#${string}`;
+// export type RGBColor = `rgb(${number}, ${number}, ${number})`;
+
+// export type ColorFormat = 'rgb' | 'hex' | 'hsl' | 'hsv';
+// export type ColorActionType = `update-${ColorFormat}-action`;
 
 export type UpdateHexColorAction = {
   type: 'update-hex-color';
@@ -14,8 +20,18 @@ export type UpdateRGBColorAction = {
   };
 };
 
+export type UpdateHSLColorAction = {
+  type: 'update-hsl-color';
+  payload: {
+    hsl: [number, number, number];
+  };
+};
+
 //if we put a type in global.d.ts, we don't need to import it anywhere, we can just use it
-export type AdjustColorActions = UpdateHexColorAction | UpdateRGBColorAction;
+export type AdjustColorActions =
+  | UpdateHexColorAction
+  | UpdateRGBColorAction
+  | UpdateHSLColorAction;
 
 export type ColorState = {
   hexColor: string;
@@ -35,6 +51,10 @@ export const colorReducer = (
   }
   if (action.type === 'update-rgb-color') {
     const hexColor = '#' + rgb.hex(action.payload.rgb);
+    return { ...state, hexColor };
+  }
+  if (action.type === 'update-hsl-color') {
+    const hexColor = '#' + hsl.hex(action.payload.hsl);
     return { ...state, hexColor };
   }
 

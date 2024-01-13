@@ -15,7 +15,7 @@ const AdjustColors = ({ hexColor, dispatch }: AdjustColorsProps) => {
     <div className="flex w-full flex-col gap-4">
       <h3>Adjust Colors</h3>
       <HexToRGB dispatch={dispatch} hexColor={hexColor} />
-      <HexToHSL hexColor={hexColor} />
+      <HexToHSL dispatch={dispatch} hexColor={hexColor} />
       <HexToHSV hexColor={hexColor} />
       <HexToCMYK hexColor={hexColor} />
       <ColorName hexColor={hexColor} />
